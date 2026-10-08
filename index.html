@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nuestra historia 💕</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 1) RULETA -->
+<section id="wheel-screen" class="screen">
+  <h1 class="script">Nuestras próximas citas</h1>
+  <p class="sub">Gira la ruleta y que el destino decida</p>
+
+  <div class="wheel-wrap">
+    <div class="pointer" aria-hidden="true"></div>
+    <canvas id="wheel" width="340" height="340" aria-label="Ruleta de citas"></canvas>
+    <button id="spin" class="spin-btn">🎡<span>Girar la ruleta</span></button>
+  </div>
+
+  <div id="result" class="result" aria-live="polite" hidden>
+    <p>💕 Salimos juntos a:</p>
+    <strong id="result-text"></strong>
+  </div>
+
+  <div id="confirm" class="confirm" hidden>
+    <div class="confirm-row">
+      <button id="yes" class="btn yes">❤️ Sí, vamos</button>
+      <button id="no" class="btn no">😈 No</button>
+    </div>
+    <p id="taunt" class="taunt" aria-live="polite"></p>
+  </div>
+</section>
+
+<!-- 2) HISTORIA -->
+<main id="story" hidden>
+  <section class="intro">
+    <h1 class="script big" id="names"></h1>
+    <p class="sub">❤️ Una historia que comenzó en 2025...</p>
+    <div id="cover"></div>
+    <p class="scroll-hint">Desliza para pasar la página ↓</p>
+  </section>
+
+  <section class="timeline" id="timeline"><div class="tl-line"><i></i></div></section>
+
+  <section class="special" id="ositos"></section>
+
+  <section class="gallery">
+    <h2 class="script">Recuerdos sobre la mesa</h2>
+    <div class="table" id="gallery"></div>
+  </section>
+
+  <section class="finale" id="finale"></section>
+</main>
+
+<!-- Reproductor -->
+<div class="player" id="player" hidden>
+  <button id="play" aria-label="Reproducir o pausar">⏸️</button>
+  <button id="mute" aria-label="Silenciar o activar sonido">🔊</button>
+</div>
+<audio id="bgm" loop preload="auto"></audio>
+
+<!-- Foto ampliada -->
+<div class="lightbox" id="lightbox" hidden><img alt=""><video controls playsinline hidden></video><span>✕</span></div>
+
+<script src="script.js"></script>
+</body>
+</html>

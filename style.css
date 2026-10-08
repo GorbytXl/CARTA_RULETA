@@ -1,0 +1,127 @@
+:root{
+  --bg:#fdf1f4; --bg2:#f1e6f7; --ink:#3b1d2e; --soft:#7d5a6c;
+  --rose:#d93f6b; --rose2:#f4a6bd; --lav:#b8a2dc; --paper:#fffdfd;
+  --serif-script:'Pinyon Script','Snell Roundhand',cursive;
+  --sans:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);line-height:1.6;
+  background:linear-gradient(180deg,var(--bg),var(--bg2) 60%,var(--bg));background-attachment:fixed;overflow-x:hidden}
+[hidden]{display:none!important}
+.script{font-family:var(--serif-script);font-weight:400;line-height:1.1}
+.script.big{font-size:clamp(3.4rem,13vw,7rem);color:var(--rose)}
+.sub{color:var(--soft);font-size:1.05rem}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+:focus-visible{outline:3px solid var(--lav);outline-offset:3px}
+
+/* ---- Pantalla ruleta ---- */
+.screen{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:2rem 1rem;text-align:center;transition:opacity .9s,transform .9s}
+.screen.leave{opacity:0;transform:scale(.96);pointer-events:none}
+.screen h1{font-size:clamp(2.4rem,9vw,4rem);color:var(--rose)}
+.wheel-wrap{position:relative;width:min(340px,86vw);aspect-ratio:1;margin:1rem 0}
+#wheel{width:100%;height:100%;border-radius:50%;box-shadow:0 0 0 8px #fff,0 18px 40px rgba(217,63,107,.28);transition:transform 5.2s cubic-bezier(.12,.7,.1,1)}
+.pointer{position:absolute;top:-14px;left:50%;width:0;height:0;transform:translateX(-50%);z-index:3;
+  border-left:14px solid transparent;border-right:14px solid transparent;border-top:28px solid var(--ink);filter:drop-shadow(0 2px 2px rgba(0,0,0,.25))}
+.spin-btn{position:absolute;inset:0;margin:auto;width:92px;height:92px;border-radius:50%;background:#fff;box-shadow:0 6px 18px rgba(59,29,46,.25);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:1.6rem;line-height:1.1;z-index:2;transition:transform .2s}
+.spin-btn span{font-size:.68rem;font-weight:600;color:var(--rose);max-width:68px}
+.spin-btn:hover:not(:disabled){transform:scale(1.07)}
+.spin-btn:disabled{cursor:default}
+
+.result{animation:pop .7s cubic-bezier(.2,1.5,.4,1)}
+.result p{color:var(--soft)}
+.result strong{display:block;font-size:clamp(1.6rem,6vw,2.3rem);color:var(--rose)}
+@keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+
+.confirm{width:100%;animation:pop .6s both}
+.confirm-row{display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap;transition:padding .5s}
+.btn{padding:.8rem 1.6rem;border-radius:99px;font-weight:600;font-size:1.05rem;box-shadow:0 6px 16px rgba(59,29,46,.18)}
+.btn.yes{background:var(--rose);color:#fff;transition:transform .6s cubic-bezier(.3,1.4,.5,1);transform-origin:center}
+.btn.no{background:#fff;color:var(--ink);z-index:20;touch-action:manipulation}
+.btn.no.run{position:fixed;transition:left .45s cubic-bezier(.3,1.3,.5,1),top .45s cubic-bezier(.3,1.3,.5,1)}
+.taunt{margin-top:1rem;min-height:1.6em;color:var(--soft);font-weight:500}
+
+/* corazones flotantes de fondo */
+.fh{position:fixed;bottom:-30px;opacity:.28;pointer-events:none;z-index:0;animation:floatUp linear infinite}
+@keyframes floatUp{to{transform:translateY(-115vh) rotate(25deg)}}
+
+/* ---- Historia ---- */
+#story{position:relative;z-index:1;animation:pop 1.2s both}
+section{padding:4.5rem 1.2rem;max-width:980px;margin:0 auto}
+.intro{text-align:center;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem}
+.scroll-hint{margin-top:1.5rem;color:var(--soft);font-size:.9rem;animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(6px)}}
+
+/* Polaroid */
+.polaroid{position:relative;background:var(--paper);padding:12px 12px 14px;border-radius:6px;box-shadow:0 10px 26px rgba(59,29,46,.22),0 2px 4px rgba(59,29,46,.12);
+  width:min(260px,78vw);transform:rotate(var(--r,0deg));cursor:zoom-in;transition:transform .35s,box-shadow .35s}
+.polaroid:hover{transform:rotate(0) scale(1.04);box-shadow:0 16px 34px rgba(59,29,46,.28)}
+.polaroid .ph,.polaroid img,.polaroid video{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:3px;background:var(--bg2)}
+.polaroid .ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;color:var(--soft);font-size:.72rem;
+  background:linear-gradient(135deg,#fbd5df,#e3d6f5);text-align:center;padding:.5rem;cursor:default}
+.polaroid .ph b{font-size:2rem}
+.polaroid figcaption{margin-top:.6rem;text-align:center;font-size:.85rem;color:var(--soft)}
+.polaroid.big{width:min(330px,84vw)}
+
+/* Timeline */
+.timeline{position:relative}
+.tl-line{position:absolute;left:22px;top:4rem;bottom:4rem;width:3px;background:rgba(184,162,220,.4);border-radius:3px}
+.tl-line i{display:block;width:100%;height:var(--p,0%);background:var(--rose);border-radius:3px}
+.tl-item{position:relative;padding-left:60px;margin-bottom:4rem}
+.tl-item::before{content:"";position:absolute;left:14px;top:.5rem;width:19px;height:19px;border-radius:50%;background:#fff;border:4px solid var(--rose)}
+.tl-item h3{font-size:1.3rem;margin-bottom:.4rem}
+.tl-item p{color:var(--soft);max-width:44ch;margin-bottom:1.4rem;font-size:1.05rem}
+.tl-photos{display:flex;flex-wrap:wrap;gap:1.4rem}
+@media(min-width:800px){
+  .tl-line{left:50%;transform:translateX(-50%)}
+  .tl-item{width:50%;padding:0 3rem 0 0;text-align:right}
+  .tl-item p{margin-left:auto}
+  .tl-item .tl-photos{justify-content:flex-end}
+  .tl-item::before{left:auto;right:-10px}
+  .tl-item:nth-of-type(even){margin-left:50%;padding:0 0 0 3rem;text-align:left}
+  .tl-item:nth-of-type(even) p{margin-left:0}
+  .tl-item:nth-of-type(even) .tl-photos{justify-content:flex-start}
+  .tl-item:nth-of-type(even)::before{right:auto;left:-10px}
+}
+
+/* Frases */
+.note{background:#fff;border-radius:14px;padding:1.2rem 1.4rem;max-width:300px;box-shadow:0 8px 22px rgba(59,29,46,.14);border-top:5px solid var(--rose2);font-size:1.05rem;transform:rotate(var(--r,0deg))}
+.note.solo{margin:0 auto 3rem;max-width:420px;text-align:center}
+
+/* Ositos */
+.special{text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.5rem;background:linear-gradient(180deg,transparent,rgba(244,166,189,.22),transparent);max-width:none}
+.special .tag{font-family:var(--serif-script);font-size:clamp(2.2rem,8vw,3.4rem);color:var(--rose)}
+
+/* Galeria */
+.gallery h2{text-align:center;font-size:clamp(2.2rem,8vw,3.2rem);color:var(--rose);margin-bottom:2.5rem}
+.table{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2rem 1.8rem}
+
+/* Final */
+.finale{text-align:center;display:flex;flex-direction:column;align-items:center;gap:1.2rem;padding-bottom:7rem}
+.finale blockquote{max-width:34ch;font-size:1.15rem;color:var(--soft)}
+.finale .tag{font-size:1.15rem;font-weight:600}
+.btn.end{background:var(--rose);color:#fff;margin-top:1rem}
+.burst{position:fixed;pointer-events:none;z-index:60;font-size:1.4rem}
+
+/* Reproductor */
+.player{position:fixed;top:.8rem;right:.8rem;z-index:50;display:flex;gap:.2rem;background:rgba(255,255,255,.85);backdrop-filter:blur(6px);padding:.2rem .35rem;border-radius:99px;box-shadow:0 4px 14px rgba(59,29,46,.18)}
+.player button{width:34px;height:34px;border-radius:50%;font-size:1rem}
+.player button:hover{background:var(--bg2)}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;z-index:100;background:rgba(40,16,30,.82);display:flex;align-items:center;justify-content:center;padding:1rem;cursor:zoom-out}
+.lightbox img,.lightbox video{max-width:100%;max-height:92vh;border:12px solid #fff;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lightbox span{position:absolute;top:1rem;right:1.4rem;color:#fff;font-size:1.6rem}
+
+/* Aparicion al hacer scroll */
+.reveal{opacity:0;transform:translate(var(--x,0),var(--y,28px)) rotate(var(--r,0deg));transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.reveal.in{opacity:1;transform:translate(0,0) rotate(var(--r,0deg))}
+.polaroid.reveal.in:hover{transform:rotate(0) scale(1.04)}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition-duration:.01s!important}
+  .reveal{opacity:1;transform:rotate(var(--r,0deg))}
+}
+
+.polaroid .badge{position:absolute;top:20px;right:20px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.88);color:var(--rose);display:grid;place-items:center;font-size:.8rem;pointer-events:none}
